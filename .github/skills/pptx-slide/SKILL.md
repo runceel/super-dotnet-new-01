@@ -17,18 +17,6 @@ Microsoft 公式テーマ（`2024-07-29-theme.thmx`）が適用済みの `seed.p
 - **Windows + PowerPoint** がインストールされていること（COM 連携で使用）
 - **.NET 10 SDK 以降**（C# file-based apps）
 
-## `marp-slide` との使い分け
-
-| | `marp-slide` | `pptx-slide`（本スキル）|
-|--|-------------|-------------|
-| 形式 | Markdown ベース（Marp） | PowerPoint 形式（PPTX） |
-| 出力 | HTML / PPTX | PPTX |
-| 重さ | 軽量 | 重厚 |
-| レイアウト | カスタム CSS（タイトル/区切り/コンテンツ/クロージング） | Microsoft 公式テーマ 72 種 |
-| 用途 | 素早い社内資料、簡易プレゼン | 顧客向け本格資料、社内発表 |
-
-迷ったら `marp-slide`。テーマ品質と多彩なレイアウトが必要なら `pptx-slide`。
-
 ## ファイル構成
 
 スキル assets:
