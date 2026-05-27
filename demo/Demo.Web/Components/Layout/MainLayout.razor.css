@@ -1,0 +1,113 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    background: transparent;
+}
+
+.sidebar {
+    background:
+        linear-gradient(180deg, rgba(81, 43, 212, 0.25) 0%, transparent 30%),
+        linear-gradient(180deg, #15152a 0%, #0a0a14 100%);
+    border-right: 1px solid rgba(116, 85, 221, 0.2);
+}
+
+.top-row {
+    background: rgba(15, 15, 30, 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(116, 85, 221, 0.15);
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row ::deep a, .top-row ::deep .btn-link {
+        color: #B0B0C5;
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+        font-size: 0.92rem;
+        transition: color 0.2s ease;
+    }
+
+    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
+        color: #5ACBF0;
+        text-decoration: none;
+    }
+
+    .top-row ::deep a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row {
+        justify-content: space-between;
+    }
+
+    .top-row ::deep a, .top-row ::deep .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 260px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row.auth ::deep a:first-child {
+        flex: 1;
+        text-align: right;
+        width: 0;
+    }
+
+    .top-row, article {
+        padding-left: 2.25rem !important;
+        padding-right: 2rem !important;
+    }
+}
+
+#blazor-error-ui {
+    background: linear-gradient(135deg, #6f1010 0%, #b32121 100%);
+    color: #fff;
+    bottom: 0;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.6);
+    display: none;
+    left: 0;
+    padding: 0.7rem 1.25rem 0.8rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+        color: #fff;
+    }
+
+    #blazor-error-ui .reload {
+        color: #fff;
+        text-decoration: underline;
+    }

@@ -1,0 +1,89 @@
+@page "/sessions"
+@attribute [StreamRendering(true)]
+
+@inject SessionApiClient SessionApi
+@inject ILogger<Sessions> Logger
+
+<PageTitle>超dotnet new セッション一覧</PageTitle>
+
+<div class="page-header">
+    <h1>セッション一覧</h1>
+    <p>2026.05.29 超dotnet new · Aspire 経由で API + Redis から取得</p>
+</div>
+
+@if (todaysSession is not null)
+{
+    <div class="card border-primary mb-4">
+        <div class="card-body">
+            <span class="badge bg-primary mb-2">今日のスポットライト</span>
+            <h3 class="card-title">@todaysSession.Title</h3>
+            <p class="session-speaker">by <strong>@todaysSession.Speaker</strong></p>
+            <a href="@todaysSession.SpeakerUrl" target="_blank" rel="noopener" class="btn btn-primary btn-sm">スピーカー情報</a>
+        </div>
+    </div>
+}
+else if (todayError is not null)
+{
+    <div class="alert alert-danger">
+        <strong>「今日のスポットライト」の取得に失敗しました:</strong> @todayError
+    </div>
+}
+
+@if (allSessions is null && listError is null)
+{
+    <p class="text-muted"><em>Loading...</em></p>
+}
+else if (listError is not null)
+{
+    <div class="alert alert-danger">
+        <strong>セッション一覧の取得に失敗しました:</strong> @listError
+    </div>
+}
+else
+{
+    <h2 class="section-title">すべてのセッション</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+        @foreach (var s in allSessions!)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@s.Title</h5>
+                        <p class="session-speaker">by <strong>@s.Speaker</strong></p>
+                        <a href="@s.SpeakerUrl" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">プロフィール</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private SessionEntry? todaysSession;
+    private SessionEntry[]? allSessions;
+    private string? todayError;
+    private string? listError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            todaysSession = await SessionApi.GetTodaysSpotlightAsync();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to fetch today's spotlight");
+            todayError = ex.Message;
+        }
+
+        try
+        {
+            allSessions = await SessionApi.GetSessionsAsync();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to fetch sessions");
+            listError = ex.Message;
+        }
+    }
+}
