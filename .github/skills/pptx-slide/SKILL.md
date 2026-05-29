@@ -22,15 +22,19 @@ Microsoft 公式テーマ（`2024-07-29-theme.thmx`）が適用済みの `seed.p
 スキル assets:
 
 ```
-.github/skills/pptx-slide/assets/
-├── seed.pptx                       # Microsoft テーマ適用済みベース (11.5MB)
-├── layouts.md                      # 72 種レイアウトカタログ
-└── scripts/
-    ├── unpack.cs                   # PPTX 展開 + XML pretty-print
-    ├── pack.cs                     # 展開ディレクトリ → PPTX
-    ├── add-slide.cs                # レイアウト指定スライド追加
-    ├── list-layouts.cs             # レイアウト一覧取得
-    └── export-images.cs            # JPG エクスポート（QA 用）
+.github/skills/pptx-slide/
+├── assets/
+│   ├── seed.pptx                       # Microsoft テーマ適用済みベース (11.5MB)
+│   ├── layouts.md                      # 72 種レイアウトカタログ
+│   └── scripts/
+│       ├── unpack.cs                   # PPTX 展開 + XML pretty-print
+│       ├── pack.cs                     # 展開ディレクトリ → PPTX
+│       ├── add-slide.cs                # レイアウト指定スライド追加
+│       ├── list-layouts.cs             # レイアウト一覧取得
+│       ├── export-images.cs            # JPG エクスポート（QA 用）
+│       └── add-bullet-fade-animation.cs # 箇条書きフェードアニメーション追加（オプション）
+└── references/
+    └── bullet-fade-animation.md        # 箇条書きフェードアニメーションの詳細
 ```
 
 ## ワークフロー
@@ -196,6 +200,14 @@ dotnet run .github/skills/pptx-slide/assets/scripts/export-images.cs <保存先>
 ### 10. 修正ループ
 
 QA で指摘された問題があれば、XML を編集 → pack → export-images → 再 QA を繰り返します。**最低 1 回は修正→再検証サイクルを回してから完成とすること**。
+
+## オプション: 箇条書きアニメーション
+
+ユーザーから「箇条書きを 1 つずつ表示したい」「アニメーションを付けて」と明示的に依頼された場合のみ、トップレベル箇条書きごとに 1 クリックでフェード表示するアニメーションを追加できます（ぶら下がりの子要素は親と同時表示）。
+
+専用スクリプト `assets/scripts/add-bullet-fade-animation.cs` を使用します。**デフォルトのスライド作成ワークフローには含めません**（必要なときだけ追加します）。
+
+詳細は [references/bullet-fade-animation.md](./references/bullet-fade-animation.md) を参照してください。
 
 ## XML 編集のコツ
 

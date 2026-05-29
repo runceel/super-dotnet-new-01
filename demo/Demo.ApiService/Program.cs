@@ -1,4 +1,4 @@
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,7 +64,6 @@ app.MapGet("/sessions/today", async (IConnectionMultiplexer redis, CancellationT
 })
 .WithName("GetSessionOfTheDay");
 
-// PLANTED ERROR: 本来 "/sessions" だが単数形になっている
 app.MapGet("/session", async (IConnectionMultiplexer redis, CancellationToken ct) =>
 {
     var db = redis.GetDatabase();
